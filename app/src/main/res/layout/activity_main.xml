@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/cityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text=""
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/cityTextView"
+        android:layout_marginTop="2dp"
+        android:text=""
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/weatherNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/dateTextView"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weatherNow"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="32dp"
+        android:columnCount="8"
+        android:rowCount="4"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_column="0"
+            android:layout_row="1"
+            android:layout_gravity="center"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/temperature"
+            android:background="#FFFFFF"
+            android:layout_marginTop="4dp"/>
+
+        <ImageView
+            android:layout_column="0"
+            android:layout_row="2"
+            android:layout_gravity="center"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/humidity"
+            android:background="#FFFFFF"
+            android:layout_marginTop="4dp"/>
+
+        <ImageView
+            android:layout_column="0"
+            android:layout_row="3"
+            android:layout_gravity="center"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/cloud"
+            android:background="#FFFFFF"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_gravity="center"
+            android:text="00:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_column="2"
+            android:layout_row="0"
+            android:layout_gravity="center"
+            android:text="04:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_column="3"
+            android:layout_row="0"
+            android:layout_gravity="center"
+            android:text="08:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_column="4"
+            android:layout_row="0"
+            android:layout_gravity="center"
+            android:text="12:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_column="5"
+            android:layout_row="0"
+            android:layout_gravity="center"
+            android:text="16:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_column="6"
+            android:layout_row="0"
+            android:layout_gravity="center"
+            android:text="20:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_column="7"
+            android:layout_row="0"
+            android:layout_gravity="center"
+            android:text="Avg."
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/temperature0000"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:layout_gravity="center"
+            android:text="00:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/temperature0400"
+            android:layout_column="2"
+            android:layout_row="1"
+            android:layout_gravity="center"
+            android:text="04:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/temperature0800"
+            android:layout_column="3"
+            android:layout_row="1"
+            android:layout_gravity="center"
+            android:text="08:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/temperature1200"
+            android:layout_column="4"
+            android:layout_row="1"
+            android:layout_gravity="center"
+            android:text="12:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/temperature1600"
+            android:layout_column="5"
+            android:layout_row="1"
+            android:layout_gravity="center"
+            android:text="16:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/temperature2000"
+            android:layout_column="6"
+            android:layout_row="1"
+            android:layout_gravity="center"
+            android:text="20:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/temperatureAvg"
+            android:layout_column="7"
+            android:layout_row="1"
+            android:layout_gravity="center"
+            android:text="Avg."
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/humidity0000"
+            android:layout_column="1"
+            android:layout_row="2"
+            android:layout_gravity="center"
+            android:text="00:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/humidity0400"
+            android:layout_column="2"
+            android:layout_row="2"
+            android:layout_gravity="center"
+            android:text="04:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/humidity0800"
+            android:layout_column="3"
+            android:layout_row="2"
+            android:layout_gravity="center"
+            android:text="08:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/humidity1200"
+            android:layout_column="4"
+            android:layout_row="2"
+            android:layout_gravity="center"
+            android:text="12:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/humidity1600"
+            android:layout_column="5"
+            android:layout_row="2"
+            android:layout_gravity="center"
+            android:text="16:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/humidity2000"
+            android:layout_column="6"
+            android:layout_row="2"
+            android:layout_gravity="center"
+            android:text="20:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/humidityAvg"
+            android:layout_column="7"
+            android:layout_row="2"
+            android:layout_gravity="center"
+            android:text="Avg."
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/cloud0000"
+            android:layout_column="1"
+            android:layout_row="3"
+            android:layout_gravity="center"
+            android:text="00:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/cloud0400"
+            android:layout_column="2"
+            android:layout_row="3"
+            android:layout_gravity="center"
+            android:text="04:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/cloud0800"
+            android:layout_column="3"
+            android:layout_row="3"
+            android:layout_gravity="center"
+            android:text="08:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/cloud1200"
+            android:layout_column="4"
+            android:layout_row="3"
+            android:layout_gravity="center"
+            android:text="12:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/cloud1600"
+            android:layout_column="5"
+            android:layout_row="3"
+            android:layout_gravity="center"
+            android:text="16:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/cloud2000"
+            android:layout_column="6"
+            android:layout_row="3"
+            android:layout_gravity="center"
+            android:text="20:00"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/cloudAvg"
+            android:layout_column="7"
+            android:layout_row="3"
+            android:layout_gravity="center"
+            android:text="Avg."
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+    </GridLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/day1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#0000FF"
+            android:layout_margin="1dp" />
+
+        <View
+            android:id="@+id/day2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#0000FF"
+            android:layout_margin="1dp" />
+
+        <View
+            android:id="@+id/day3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#0000FF"
+            android:layout_margin="1dp" />
+    </LinearLayout>
+</RelativeLayout>
