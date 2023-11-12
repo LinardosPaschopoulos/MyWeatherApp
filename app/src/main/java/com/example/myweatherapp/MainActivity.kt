@@ -2,6 +2,7 @@ package com.example.myweatherapp
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
 import android.location.Address
@@ -11,7 +12,8 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -31,26 +33,39 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private val temperatureArray = mutableListOf<Double>()
     private val humidityArray = mutableListOf<Int>()
     private val cloudCoverArray = mutableListOf<Int>()
+    private var weatherData: WeatherData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         title = "Weather App"
 
-        val blueRectangles = arrayOf(
-            findViewById(R.id.day1),
-            findViewById(R.id.day2),
-            findViewById<View>(R.id.day3)
+        val forecastButtons = arrayOf(
+            findViewById(R.id.day1Button),
+            findViewById(R.id.day2Button),
+            findViewById<Button>(R.id.day3Button)
         )
+
+        forecastButtons[0].setOnClickListener {
+            weatherData?.let { it1 -> showForecast(it1, 24, forecastButtons[0].text.toString()) }
+        }
+
+        forecastButtons[1].setOnClickListener {
+            weatherData?.let { it1 -> showForecast(it1, 48, forecastButtons[1].text.toString()) }
+        }
+
+        forecastButtons[2].setOnClickListener {
+            weatherData?.let { it1 -> showForecast(it1, 72, forecastButtons[2].text.toString()) }
+        }
 
         val screenWidth = resources.displayMetrics.widthPixels
         val rectangleWidth = (screenWidth - 4 * 8) / 3
 
-        for (rectangle in blueRectangles) {
-            val layoutParams = rectangle.layoutParams
+        for (button in forecastButtons) {
+            val layoutParams = button.layoutParams
             layoutParams.width = rectangleWidth
-            layoutParams.height = (rectangleWidth * 1.7).toInt()
-            rectangle.layoutParams = layoutParams
+            layoutParams.height = (rectangleWidth * 0.3).toInt()
+            button.layoutParams = layoutParams
         }
 
         weatherNow = findViewById(R.id.weatherNow)
@@ -88,11 +103,22 @@ class MainActivity : AppCompatActivity(), LocationListener {
 
     override fun onLocationChanged(location: Location) {
         val currentCity = getCurrentCityName(this, location)
-        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+        val calendar = Calendar.getInstance()
+        calendar.time = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(currentDate) ?: Date()
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        val day1Date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(calendar.time)
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        val day2Date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(calendar.time)
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        val day3Date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(calendar.time)
 
         runOnUiThread {
             findViewById<TextView>(R.id.cityTextView).text = "City: $currentCity"
             findViewById<TextView>(R.id.dateTextView).text = "Date: $currentDate"
+            findViewById<TextView>(R.id.day1Button).text = "$day1Date"
+            findViewById<TextView>(R.id.day2Button).text = "$day2Date"
+            findViewById<TextView>(R.id.day3Button).text = "$day3Date"
         }
 
         makeAPIRequest(location.latitude, location.longitude)
@@ -168,17 +194,23 @@ class MainActivity : AppCompatActivity(), LocationListener {
 
                     // Handle the JSON response here
                     val jsonResponse = response.toString()
-                    val weatherData = parseJson(jsonResponse)
+                    weatherData = parseJson(jsonResponse)
 
                     // Check if parsing was successful and data is not null
-                    if (weatherData != null && weatherData.hourly != null) {
-                        val temperatureData = weatherData.hourly.temperature_2m
-                        val humidityData = weatherData.hourly.relative_humidity_2m
-                        val cloudCoverData = weatherData.hourly.cloud_cover
+                    if (weatherData?.hourly != null) {
+                        val temperatureData = weatherData?.hourly?.temperature_2m
+                        val humidityData = weatherData?.hourly?.relative_humidity_2m
+                        val cloudCoverData = weatherData?.hourly?.cloud_cover
 
-                        temperatureArray.addAll(temperatureData)
-                        humidityArray.addAll(humidityData)
-                        cloudCoverArray.addAll(cloudCoverData)
+                        if (temperatureData != null) {
+                            temperatureArray.addAll(temperatureData)
+                        }
+                        if (humidityData != null) {
+                            humidityArray.addAll(humidityData)
+                        }
+                        if (cloudCoverData != null) {
+                            cloudCoverArray.addAll(cloudCoverData)
+                        }
                     } else {
                         // Handle the case where parsing failed or data is null
                         runOnUiThread {
@@ -244,5 +276,22 @@ class MainActivity : AppCompatActivity(), LocationListener {
         }
 
         findViewById<TextView>(averageId).text = String.format("%.2f", average)
+    }
+
+    private fun showForecast(weatherData: WeatherData, interval: Int, buttonText: String) {
+        val intent = Intent(this, ThreeDayForecastActivity::class.java)
+        intent.putExtra("interval", interval)
+        Log.d("mpifteki", "mpifteki")
+        Log.d("mpifteki", interval.toString())
+        val temperatureArray = weatherData.hourly.temperature_2m.subList(interval, interval + 24)
+        val humidityArray = weatherData.hourly.relative_humidity_2m.subList(interval, interval + 24)
+        val cloudArray = weatherData.hourly.cloud_cover.subList(interval, interval + 24)
+
+        intent.putExtra("temperatureData", ArrayList(temperatureArray))
+        intent.putExtra("humidityData", ArrayList(humidityArray))
+        intent.putExtra("cloudCoverData", ArrayList(cloudArray))
+        intent.putExtra("buttonText", buttonText)
+
+        startActivity(intent)
     }
 }

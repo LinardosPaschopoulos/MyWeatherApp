@@ -1,54 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="4dp"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/cityTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text=""
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/cityTextView"
-        android:layout_marginTop="2dp"
-        android:text=""
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/weatherNow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/dateTextView"
-        android:layout_marginTop="8dp"
-        android:text=""
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ThreeDayForecastActivity">
 
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/weatherNow"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginTop="32dp"
         android:columnCount="8"
         android:rowCount="4"
-        android:layout_centerHorizontal="true">
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
             android:layout_column="0"
@@ -381,42 +350,4 @@
             android:textStyle="bold"
             />
     </GridLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/day1Button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text=""
-            android:textColor="#FFFFFF"
-            android:layout_weight="1"
-            android:background="#333333"
-            android:layout_margin="1dp" />
-
-        <Button
-            android:id="@+id/day2Button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text=""
-            android:textColor="#FFFFFF"
-            android:layout_weight="1"
-            android:background="#333333"
-            android:layout_margin="1dp" />
-
-        <Button
-            android:id="@+id/day3Button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text=""
-            android:textColor="#FFFFFF"
-            android:layout_weight="1"
-            android:background="#333333"
-            android:layout_margin="1dp" />
-    </LinearLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
