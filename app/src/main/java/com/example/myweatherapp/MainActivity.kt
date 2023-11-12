@@ -12,7 +12,6 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -227,22 +226,19 @@ class MainActivity : AppCompatActivity(), LocationListener {
                     updateGridItems(
                         listOf(R.id.temperature0000, R.id.temperature0400, R.id.temperature0800, R.id.temperature1200, R.id.temperature1600, R.id.temperature2000),
                         temperatureArray,
-                        R.id.temperatureAvg,
-                        4
+                        R.id.temperatureAvg
                     )
 
                     updateGridItems(
                         listOf(R.id.humidity0000, R.id.humidity0400, R.id.humidity0800, R.id.humidity1200, R.id.humidity1600, R.id.humidity2000),
                         humidityArray,
-                        R.id.humidityAvg,
-                        4
+                        R.id.humidityAvg
                     )
 
                     updateGridItems(
                         listOf(R.id.cloud0000, R.id.cloud0400, R.id.cloud0800, R.id.cloud1200, R.id.cloud1600, R.id.cloud2000),
                         cloudCoverArray,
-                        R.id.cloudAvg,
-                        4
+                        R.id.cloudAvg
                     )
 
                     weatherNow.text = "Temperature: ${temperatureArray[0]}°C\nHumidity: ${humidityArray[0]}%\nCloud Cover: ${cloudCoverArray[0]}%"
@@ -260,10 +256,9 @@ class MainActivity : AppCompatActivity(), LocationListener {
         }.start()
     }
 
-    private fun updateGridItems(
-        timeIds: List<Int>, dataList: List<Any>, averageId: Int, interval: Int) {
+    private fun updateGridItems(timeIds: List<Int>, dataList: List<Any>, averageId: Int) {
         for (i in timeIds.indices) {
-            val index = i * interval
+            val index = i * 4
             val textView = findViewById<TextView>(timeIds[i])
             textView.text = if (dataList.isNotEmpty()) "${dataList[index]}" else ""
         }
@@ -281,8 +276,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private fun showForecast(weatherData: WeatherData, interval: Int, buttonText: String) {
         val intent = Intent(this, ThreeDayForecastActivity::class.java)
         intent.putExtra("interval", interval)
-        Log.d("mpifteki", "mpifteki")
-        Log.d("mpifteki", interval.toString())
+
         val temperatureArray = weatherData.hourly.temperature_2m.subList(interval, interval + 24)
         val humidityArray = weatherData.hourly.relative_humidity_2m.subList(interval, interval + 24)
         val cloudArray = weatherData.hourly.cloud_cover.subList(interval, interval + 24)
