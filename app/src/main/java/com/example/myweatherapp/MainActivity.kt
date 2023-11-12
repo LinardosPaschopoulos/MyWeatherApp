@@ -27,7 +27,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), LocationListener {
     private lateinit var locationManager: LocationManager
-    private lateinit var weatherNow: TextView
     private val locationPermissionCode = 2
     private val temperatureArray = mutableListOf<Double>()
     private val humidityArray = mutableListOf<Int>()
@@ -66,8 +65,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
             layoutParams.height = (rectangleWidth * 0.3).toInt()
             button.layoutParams = layoutParams
         }
-
-        weatherNow = findViewById(R.id.weatherNow)
 
         if (checkLocationPermission()) {
             getLocation()
@@ -240,8 +237,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
                         cloudCoverArray,
                         R.id.cloudAvg
                     )
-
-                    weatherNow.text = "Temperature: ${temperatureArray[0]}°C\nHumidity: ${humidityArray[0]}%\nCloud Cover: ${cloudCoverArray[0]}%"
                 }
             } catch (e: Exception) {
                 // Handle other exceptions here
