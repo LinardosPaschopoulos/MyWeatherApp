@@ -7,9 +7,13 @@ import android.widget.TextView
 class ThreeDayForecastActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_three_day_forecast)
+        setContentView(R.layout.activity_main)
 
-        title = intent.getStringExtra(("buttonText"))
+        title = ("Weather App")
+        val date = intent.getStringExtra(("buttonText"))
+        val currentCity = intent.getStringExtra(("currentCity"))
+        findViewById<TextView>(R.id.cityTextView).text = "$currentCity"
+        findViewById<TextView>(R.id.dateTextView).text = "Date: $date"
 
         val temperatureData = intent?.getSerializableExtra("temperatureData") as ArrayList<*>?
         val humidityData = intent.getIntegerArrayListExtra("humidityData") ?: ArrayList()

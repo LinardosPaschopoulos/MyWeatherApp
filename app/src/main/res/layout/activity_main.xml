@@ -347,6 +347,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_margin="8dp"/>
+
     </GridLayout>
 
     <LinearLayout
@@ -390,4 +391,13 @@
             android:layout_margin="1dp"
             />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loadingIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 </RelativeLayout>

@@ -12,7 +12,10 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.GridLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -71,6 +74,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
         } else {
             requestLocationPermission()
         }
+
+        setVisibility(false)
     }
 
     private fun checkLocationPermission(): Boolean {
@@ -237,6 +242,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
                         cloudCoverArray,
                         R.id.cloudAvg
                     )
+
+                    setVisibility(true)
                 }
             } catch (e: Exception) {
                 // Handle other exceptions here
@@ -249,6 +256,26 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 }
             }
         }.start()
+    }
+
+    private fun setVisibility(visibility: Boolean) {
+        if (visibility) {
+            findViewById<ProgressBar>(R.id.loadingIndicator).visibility = View.INVISIBLE
+            findViewById<TextView>(R.id.cityTextView).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.dateTextView).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.day1Button).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.day2Button).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.day3Button).visibility = View.VISIBLE
+            findViewById<GridLayout>(R.id.gridLayout).visibility = View.VISIBLE
+        } else {
+            findViewById<ProgressBar>(R.id.loadingIndicator).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.cityTextView).visibility = View.INVISIBLE
+            findViewById<TextView>(R.id.dateTextView).visibility = View.INVISIBLE
+            findViewById<TextView>(R.id.day1Button).visibility = View.INVISIBLE
+            findViewById<TextView>(R.id.day2Button).visibility = View.INVISIBLE
+            findViewById<TextView>(R.id.day3Button).visibility = View.INVISIBLE
+            findViewById<GridLayout>(R.id.gridLayout).visibility = View.INVISIBLE
+        }
     }
 
     private fun updateGridItems(timeIds: List<Int>, dataList: List<Any>, averageId: Int) {
@@ -279,6 +306,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         intent.putExtra("temperatureData", ArrayList(temperatureArray))
         intent.putExtra("humidityData", ArrayList(humidityArray))
         intent.putExtra("cloudCoverData", ArrayList(cloudArray))
+        intent.putExtra(("currentCity"), findViewById<TextView>(R.id.cityTextView).text)
         intent.putExtra("buttonText", buttonText)
 
         startActivity(intent)
